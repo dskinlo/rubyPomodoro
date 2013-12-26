@@ -3,7 +3,7 @@ rubyPomodoro
 
 A Command line Pomodoro Timer, with a logging/journaling option. 
 
-Haven't done any Rake tasks or gemspec stuff yet. Feel free to fork this. 
+Requires Ruby 1.9.3
 
 ##Install
 
