@@ -2,7 +2,7 @@
 
 require './magic.rb'
 require 'ruby-progressbar'
-require "CSV"
+require 'CSV'
 
 logo = IO.read("logo.txt")
 
