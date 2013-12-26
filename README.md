@@ -22,3 +22,6 @@ Run with
 
 >--log
 This creates a directory in your home directory called .pomodoro, and creates a unique CSV file for each day, and fills it with the start/end task and notes. 
+
+##DogeCoin
+D8NPqGZhAVNKM1STQjp99mv8ZpPrNqznXU
