@@ -21,4 +21,4 @@ Run with
 ##Options
 
 >--log
-This creates a directory in your home directory called .pomodoro, and creates a unique CSV file for each day, and fills it with the start/end task and notes about 
+This creates a directory in your home directory called .pomodoro, and creates a unique CSV file for each day, and fills it with the start/end task and notes. 
