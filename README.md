@@ -8,8 +8,11 @@ Haven't done any Rake tasks or gemspec stuff yet.
 ##Install
 
 >git clone git@github.com:lindseymysse/rubyPomodoro.git
+
 >gem install ruby-progressbar
+
 >cd rubyPomodoro
+
 >./pomodoro.rb "My first Pomodoro" --log
 
 Run with 
