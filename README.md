@@ -9,7 +9,7 @@ Haven't done any Rake tasks or gemspec stuff yet. Feel free to fork this.
 
 >git clone git@github.com:lindseymysse/rubyPomodoro.git
 
->gem install ruby-progressbar
+>bundle install
 
 >cd rubyPomodoro
 
