@@ -20,10 +20,12 @@ task = ""
 
 
 ARGV.each do |value|
+	#if there is a number in the ARGV then it sets how many minutes the pomodoro will be
 	if value.is_number?
-		puts value + " minutes"
 		timeInMinutes = value
-		timeInSeconds = value.to_i * 60
+		timeInSeconds = 5#value.to_i * 60
+
+	#if there is a string it uses it to build the task name
 	elsif value.is_string? 
 		task << value + " "
 	end
@@ -32,23 +34,6 @@ ARGV.each do |value|
 end
 
 
-outputTitle =  "Time |".yellow + "Task:".yellow
-
-while timeInSeconds > 0 
-	sleep 1
-	timeInSeconds -= 1
-
-	outputResult = readableTime(timeInSeconds) + "| "+ task 
-	puts outputTitle + "\r" + outputResult + "\r"
-
-
-end
-
-
-
-
-#ding
-
-
+pomodoro(timeInSeconds, task)
 
 

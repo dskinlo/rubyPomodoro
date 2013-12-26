@@ -1,4 +1,6 @@
 #extend String
+
+
 class String
   def is_number?
     true if Float(self) rescue false
@@ -29,6 +31,18 @@ class String
     colorize(35)
   end
 
+  def fullColumn
+    columns = %x(tput cols).to_i
+    noOfSpaces = columns - self.length
+    str = ""
+    
+    noOfSpaces.times do
+      str << " "
+    end
+
+    return self + str
+  end
+
 end
 
 #play the ding
@@ -42,8 +56,28 @@ def readableTime(timeInSeconds)
   lSeconds = timeInSeconds % 60
   lMinutes = (timeInSeconds / 60).floor
 
-  return lMinutes.to_s + ":" + lSeconds.to_s
+  return lMinutes.to_s.rjust(2, '0') + ":" + lSeconds.to_s.rjust(2, '0')
 
+
+end
+
+def pomodoro(timeInSeconds, task)
+  
+  puts "Time |".yellow + "Task:".yellow
+
+  while timeInSeconds > 0 
+    sleep 1
+    timeInSeconds -= 1
+
+    outputResult = readableTime(timeInSeconds) + "| ".yellow+ task 
+    print outputResult + "\r"
+    $stdout.flush
+
+  end
+
+
+  puts "Pomodoro Finished!".fullColumn
+  ding
 
 end
 
