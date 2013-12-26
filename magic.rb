@@ -37,3 +37,13 @@ def ding
 
 	exec("afplay sounds/ding.wav")
 end
+
+def readableTime(timeInSeconds)
+  lSeconds = timeInSeconds % 60
+  lMinutes = (timeInSeconds / 60).floor
+
+  return lMinutes.to_s + ":" + lSeconds.to_s
+
+
+end
+

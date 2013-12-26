@@ -14,8 +14,9 @@ puts logo.red
 #                                       
 
 timeInMinutes = 25
-timeInSeconds = 25 * 60
+timeInSeconds = timeInMinutes * 60
 task = ""
+
 
 
 ARGV.each do |value|
@@ -31,7 +32,20 @@ ARGV.each do |value|
 end
 
 
-puts "Pomodoro for: " + timeInMinutes.to_s.yellow + " minutes, doing: " + task.yellow
+outputTitle =  "Time |".yellow + "Task:".yellow
+
+while timeInSeconds > 0 
+	sleep 1
+	timeInSeconds -= 1
+
+	outputResult = readableTime(timeInSeconds) + "| "+ task 
+	puts outputTitle + "\r" + outputResult + "\r"
+
+
+end
+
+
+
 
 #ding
 
