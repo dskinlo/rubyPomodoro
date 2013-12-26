@@ -1,4 +1,3 @@
-#extend String
 
 
 class String
@@ -13,6 +12,7 @@ class String
    # colorization
   def colorize(color_code)
     "\e[#{color_code}m#{self}\e[0m"
+
   end
 
   def red
@@ -35,7 +35,7 @@ class String
     columns = %x(tput cols).to_i
     noOfSpaces = columns - self.length
     str = ""
-    
+
     noOfSpaces.times do
       str << " "
     end
@@ -48,8 +48,7 @@ end
 #play the ding
 
 def ding
-
-	exec("afplay sounds/ding.wav")
+	system("afplay sounds/ding.wav")
 end
 
 def readableTime(timeInSeconds)
@@ -62,22 +61,68 @@ def readableTime(timeInSeconds)
 end
 
 def pomodoro(timeInSeconds, task)
-  
-  puts "Time |".yellow + "Task:".yellow
+  puts "Task: ".yellow + task.red + " Total Time: ".yellow + readableTime(timeInSeconds).red
+  progressbar = ProgressBar.create(:title=>task, :format =>"\e[33m%a\e[0m |%B|", :total => timeInSeconds)
 
   while timeInSeconds > 0 
     sleep 1
     timeInSeconds -= 1
-
-    outputResult = readableTime(timeInSeconds) + "| ".yellow+ task 
-    print outputResult + "\r"
-    $stdout.flush
+    progressbar.increment
 
   end
 
+  Thread.new{ding}
+end
 
-  puts "Pomodoro Finished!".fullColumn
-  ding
+def printSummary(logs)
+
+  titleText = "Start Time | End Time | Task".yellow
+
+  puts ""
+  puts titleText
+  totalTime = 0
+
+  logs.each do |l|
+
+    stime = l[:startTime].hour.to_s + ":" + l[:startTime].min.to_s
+    etime = l[:endTime].hour.to_s + ":" + l[:endTime].min.to_s
+    totalTime = l[:timeInSeconds].to_i + totalTime.to_i
+    puts stime + "      | ".yellow + etime + "    | ".yellow + l[:task]
+
+  end
+
+  puts " "
+  puts "Total Pomodoro Time: ".yellow + readableTime(totalTime)
 
 end
 
+def saveLog(logs)
+  filename = Time.now.month.to_s + Time.now.day.to_s + Time.now.year.to_s + ".csv"
+
+  if !File.exists? File.expand_path('~/.pomodoro')
+    Dir.mkdir( File.expand_path('~/.pomodoro'))
+  end
+
+  if !File.exists? File.expand_path('~/.pomodoro/'+filename)
+    #if file doesn't exist create it and put values in
+
+    CSV.open(File.expand_path('~/.pomodoro/'+filename),"wb") do |csv|
+      csv << logs[0].keys      
+      
+      logs.each do |l|
+        csv << l.values
+      end
+    end
+
+  else
+    #if file does exist, open it to append the values to it
+    CSV.open(File.expand_path('~/.pomodoro/'+filename), "ab") do |csv|
+      logs.each do |l|
+        csv << l.values
+      end
+
+    end
+
+  end
+
+end
